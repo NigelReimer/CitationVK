@@ -1,0 +1,31 @@
+﻿@page
+@model MergeDatasetModel
+@{
+    ViewData["Title"] = "Merge Datasets";
+}
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h3 class="mb-4 text-dark">@ViewData["Title"]</h3>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name">@Html.DisplayNameFor(x => x.Name)</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatasetId1"></label>
+                <select asp-for="DatasetId1" asp-items="@(new SelectList(Model.Datasets, "Id", "Name"))" class="form-control"></select>
+                <span asp-validation-for="DatasetId1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatasetId2"></label>
+                <select asp-for="DatasetId2" asp-items="@(new SelectList(Model.Datasets, "Id", "Name"))" class="form-control"></select>
+                <span asp-validation-for="DatasetId2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-info" type="submit" value="Merge" />
+            </div>
+        </form>
+    </div>
+</div>

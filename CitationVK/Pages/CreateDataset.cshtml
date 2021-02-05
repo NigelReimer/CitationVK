@@ -1,0 +1,39 @@
+﻿@page
+@model CreateDatasetModel
+@{
+    ViewData["Title"] = "Create Dataset";
+}
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h3 class="mb-4 text-dark">@ViewData["Title"]</h3>
+        <form enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <label asp-for="Dataset.Name">@Html.DisplayNameFor(x => x.Dataset.Name)</label>
+                <input asp-for="Dataset.Name" class="form-control" />
+                <span asp-validation-for="Dataset.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-radio">
+                    <input asp-for="InputMethod" checked class="custom-control-input" id="radioString" type="radio" value="string">
+                    <label class="custom-control-label" for="radioString">Add articles from text</label>
+                </div>
+                <span class="text-muted">Enter articles as a semicolon delimited list of pairs in the form PMID,Classification (e.g. 9000,0;9001,1;9002,0;9003,1;9004,0).</span>
+                <textarea asp-for="InputString" class="form-control" rows="8"></textarea>
+                <span asp-validation-for="InputString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-radio">
+                    <input asp-for="InputMethod" class="custom-control-input" id="radioFile" type="radio" value="file">
+                    <label class="custom-control-label" for="radioFile">Add articles from file</label>
+                </div>
+                <span class="text-muted">File must be of the type .csv, structured as two columns (PMID, Classification) with no headers.</span>
+                <input accept=".csv" asp-for="InputFile" class="form-control-file">
+                <span asp-validation-for="InputFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-info" type="submit" value="Create" />
+            </div>
+        </form>
+    </div>
+</div>

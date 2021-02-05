@@ -1,0 +1,54 @@
+﻿@page
+@model ClassifiersModel
+@{
+    ViewData["Title"] = "Classifiers";
+}
+
+<h3 class="d-flex h-100 justify-content-between mb-4 text-dark">
+    @ViewData["Title"]
+    <span>
+        <a asp-page="CreateClassifier" class="btn btn-info">Train Classifier</a>
+        <a asp-page="ShareClassifier" class="btn btn-info">Share Classifier</a>
+    </span>
+</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(x => x.Classifiers[0].Name)</th>
+            <th class="text-nowrap w-1">@Html.DisplayNameFor(x => x.Classifiers[0].Accuracy)</th>
+            <th class="text-nowrap w-1">@Html.DisplayNameFor(x => x.Classifiers[0].Precision)</th>
+            <th class="text-nowrap w-1">@Html.DisplayNameFor(x => x.Classifiers[0].Recall)</th>
+            <th class="text-nowrap w-1">@Html.DisplayNameFor(x => x.Classifiers[0].Date)</th>
+            <th class="no-sort text-nowrap w-1">Tools</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Classifiers.Count < 1)
+        {
+            <tr>
+                <td class="text-center" colspan="6">You currently have no classifiers.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (Models.Classifier classifier in Model.Classifiers)
+            {
+                <tr>
+                    <td>@classifier.Name</td>
+                    <td>@Math.Round(classifier.Accuracy, 2)</td>
+                    <td>@Math.Round(classifier.Precision, 2)</td>
+                    <td>@Math.Round(classifier.Recall, 2)</td>
+                    <td class="text-nowrap">@classifier.Date.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <div class="d-flex">
+                            <a asp-page="EditClassifier" asp-route-id="@classifier.Id" class="btn btn-info btn-sm mr-1" data-placement="top" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+                            <form asp-route-id="@classifier.Id" method="post" onSubmit="return confirm('Are you sure you wish to delete this classifier?');">
+                                <button class="btn btn-danger btn-sm" data-placement="top" data-toggle="tooltip" title="Delete" type="submit"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@page
+@model EditAccountModel
+@{
+    ViewData["Title"] = "Edit Account";
+}
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h3 class="mb-4 text-dark">@ViewData["Title"]</h3>
+        <form method="post">
+            <input asp-for="Account.Id" type="hidden" />
+            <input asp-for="Account.Email" type="hidden" />
+            <input asp-for="Account.Password" type="hidden" />
+            <input asp-for="Account.Answer" type="hidden" />
+            <input asp-for="Account.Salt" type="hidden" />
+            <input asp-for="Account.Date" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Question"></label>
+                <select asp-for="Account.Question" asp-items="@(new SelectList(Data.Utilities.Questions, "Key", "Value"))" class="form-control"></select>
+                <span asp-validation-for="Account.Question" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer"></label>
+                <input asp-for="Answer" class="form-control" />
+                <span asp-validation-for="Answer" class="text-danger"></span>
+            </div>
+            @if (HttpContext.Session.Get("isAdmin") != null && BitConverter.ToBoolean(HttpContext.Session.Get("isAdmin")) && Model.Account.Id != HttpContext.Session.GetInt32("id"))
+            {
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="Account.IsAdmin" class="custom-control-input">
+                        <label asp-for="Account.IsAdmin" class="custom-control-label"></label>
+                    </div>
+                </div>
+            }
+            <div class="form-group">
+                <input class="btn btn-info" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

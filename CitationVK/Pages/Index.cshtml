@@ -1,0 +1,19 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
+        <h3 class="d-flex w-100 justify-content-between mb-4 text-dark">
+            @ViewData["Title"]
+            @if (HttpContext.Session.Get("isAdmin") != null && BitConverter.ToBoolean(HttpContext.Session.Get("isAdmin")))
+            {
+                <a asp-page="EditIndex" class="btn btn-info">Edit</a>
+            }
+        </h3>
+        <p style="white-space: pre-wrap;">@Model.Configuration.Description</p>
+    </div>
+</div>

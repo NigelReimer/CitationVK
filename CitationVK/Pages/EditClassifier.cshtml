@@ -1,0 +1,21 @@
+﻿@page
+@model EditClassifierModel
+@{
+    ViewData["Title"] = "Edit Classifier";
+}
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h3 class="mb-4 text-dark">@ViewData["Title"]</h3>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-info" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
